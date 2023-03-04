@@ -42,7 +42,7 @@ def __one_hot_label(label):
     return lab
 
 
-def load_mnist(path, normalize=True, one_hot=True):
+def load_mnist(path, normalize=False, one_hot=True):
     print(path)
     x_train_path = os.path.join(path, 'train-images-idx3-ubyte.gz')
     y_train_path = os.path.join(path, 'train-labels-idx1-ubyte.gz')
