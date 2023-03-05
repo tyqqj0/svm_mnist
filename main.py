@@ -13,6 +13,15 @@ import cv2
 
 from mnist_loader import load_mnist
 import hog
+from sklearn import svm
+
+
+def train_svm(x_train, t_train):
+    # 训练
+    clf = svm.SVC()
+    clf.fit(x_train, t_train)
+    return clf
+
 
 if __name__ == '__main__':
     # 读取数据
@@ -35,6 +44,14 @@ if __name__ == '__main__':
     hog_feature = hog.hog(img)
     # hog.draw_hog(hog_feature)
     print(hog_feature.shape)
+    hog_feature = hog_feature.reshape(1, -1)
+    print(hog_feature.shape)
+
+    # 训练
+    clf = train_svm(hog_feature, label)
+    # 显示
+    print(clf.predict(hog_feature))
+
     # 显示图像
     # cv2.imshow('img', hog_feature)
     # 等待
