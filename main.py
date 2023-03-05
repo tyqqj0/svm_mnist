@@ -23,37 +23,53 @@ def train_svm(x_train, t_train):
     return clf
 
 
+def one_predict(clf, x_test):
+    # 如果是一张图片
+    if x_test.shape != (28, 28):
+        # 报错
+        print("The shape of x_test is wrong!")
+        return
+    # 转换为hog特征
+    x_test = hog.hog(x_test)
+    x_test = x_test.reshape(1, -1)
+
+    # 预测
+    predict = clf.predict(x_test)
+    print("The predict is: ", predict)
+    return predict
+
+
+# 处理标签
+def label(t_train):
+    # 处理标签
+    t_train = np.array(t_train)
+    label = []
+    for i in range(len(t_train)):
+        for j in range(10):
+            if t_train[i][j] == 1:
+                label.append(j)
+    label = np.array(label)
+    return label
+
+
 if __name__ == '__main__':
     # 读取数据
     (x_train, t_train), (x_test, t_test) = load_mnist('D:\Data\mnist')
     # 显示图像
-    img = x_train[0]
-    label = t_train[0]
-    print(label)
-    print(img.shape)
-    # 设置窗口大小
-    cv2.namedWindow('img', cv2.WINDOW_AUTOSIZE)
-    cv2.imshow('img', img)
-    # 加载hog特征检测器
-    # hog = cv2.HOGDescriptor((28, 28), (8, 8), (4, 4), (4, 4), 9)
-    # 转换为cv8u类型
-    # img = img.astype(np.uint8)
-    print("here")
-    # 计算hog特征
-    # hog_feature = hog.compute(img)
-    hog_feature = hog.hog(img)
-    # hog.draw_hog(hog_feature)
-    print(hog_feature.shape)
-    hog_feature = hog_feature.reshape(1, -1)
-    print(hog_feature.shape)
+    cv2.namedWindow('img', cv2.WINDOW_NORMAL)
+    cv2.imshow('img', x_test[0].reshape(28, 28))
+    # 将所有图片提取hog特征
+    hog_feature = hog.hog_feature(x_train)
+
+    # 处理标签
+    t_train = label(t_train)
 
     # 训练
-    clf = train_svm(hog_feature, label)
+    # print("here")
+    clf = train_svm(hog_feature[:1000], t_train[:1000])
+    # print("here")
     # 显示
-    print(clf.predict(hog_feature))
-
-    # 显示图像
-    # cv2.imshow('img', hog_feature)
-    # 等待
+    one_predict(clf, x_test[0])
+    # print("here")
     cv2.waitKey(0)
     pass

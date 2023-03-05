@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 import cv2
 
-__all__ = ["hog", "draw_hog"]
+__all__ = ["hog", "hog_feature"]
 
 args = {"image_size": 28,  # 图像大小
         "block_size": 8,  # 块大小
@@ -43,6 +43,17 @@ def hog(imgs):
     # for i in range(len(hog_feature)):
     # hog_feature[i] = hog_feature[i] / np.linalg.norm(hog_feature[i])
     # print(hog_feature[i])
+    return hog_feature
+
+
+
+# 将图像集合转换为hog特征
+def hog_feature(imgs):
+    hog_feature = []
+    for i in range(len(imgs)):
+        img = imgs[i].reshape(28, 28)
+        hog_feature.append(hog(img))
+    hog_feature = np.array(hog_feature)
     return hog_feature
 
 

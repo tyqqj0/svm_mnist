@@ -43,12 +43,12 @@ def __one_hot_label(label):
 
 
 def load_mnist(path, normalize=False, one_hot=True):
-    print(path)
+    # print(path)
     x_train_path = os.path.join(path, 'train-images-idx3-ubyte.gz')
     y_train_path = os.path.join(path, 'train-labels-idx1-ubyte.gz')
     x_test_path = os.path.join(path, 't10k-images-idx3-ubyte.gz')
     y_test_path = os.path.join(path, 't10k-labels-idx1-ubyte.gz')
-    print(x_train_path)
+    # print(x_train_path)
     '''读入MNIST数据集
     Parameters
     ----------
