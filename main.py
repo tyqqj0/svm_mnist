@@ -27,8 +27,20 @@ if __name__ == '__main__':
     model = svm.svm_model()  #
 
     # 训练
-    clf = train.train_svm(model, x_train, t_train, train_size=1000)
+    clf = train.train_svm(model, x_train, t_train, train_size=1000)  # 很慢不要开太大
+
     # 验证
-    val.val(clf, x_test, t_test)
-    cv2.waitKey(0)
+    # val.val(clf, x_test, t_test)
+
+    # 画板测试
+    c = True
+    while c:
+        val.draw_test(clf)
+        # 等待图片显示
+        # cv2.waitKey(0)
+        c = input("Continue? (y/n): ")
+        c = c == 'y'
+        cv2.destroyAllWindows()
+        # TODO:显示优化
+
     pass

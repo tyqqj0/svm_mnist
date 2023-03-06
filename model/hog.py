@@ -46,7 +46,6 @@ def hog(imgs):
     return hog_feature
 
 
-
 # 将图像集合转换为hog特征
 def hog_feature(imgs):
     hog_feature = []
@@ -55,6 +54,12 @@ def hog_feature(imgs):
         hog_feature.append(hog(img))
     hog_feature = np.array(hog_feature)
     return hog_feature
+
+
+def label(t_train):
+    # 处理标签
+    t_train = np.argmax(t_train, axis=1)
+    return t_train
 
 
 # 在图像上绘制hog特征
@@ -89,3 +94,11 @@ def draw_hog(hog_feature):
     # 显示图像
     cv2.imshow('imgs', img)
     pass
+
+
+def make_dataset(x, t):
+    x_data = hog_feature(x)
+    t_data = label(t)
+    return x_data, t_data
+
+# TODO:保存模型
