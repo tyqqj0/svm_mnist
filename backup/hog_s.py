@@ -1,7 +1,7 @@
 # -*- CODING: UTF-8 -*-
 # @time 2023/3/4 23:00
 # @Author tyqqj
-# @File hug_s.py
+# @File hog_s.py
 
 
 import numpy as np
