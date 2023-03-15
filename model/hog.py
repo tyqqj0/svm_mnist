@@ -97,8 +97,9 @@ def draw_hog(hog_feature):
 
 
 def make_dataset(x, t):
-    x_data = hog_feature(x)
-    t_data = label(t)
+    x_data = hog_feature(x)  # 将图像转换为hog特征
+    t_data = label(t)  # 将标签从one-hot编码转换为数字编码
+    print('the HoG feature size is: ', x_data.shape)
     return x_data, t_data
 
 # TODO:保存模型
